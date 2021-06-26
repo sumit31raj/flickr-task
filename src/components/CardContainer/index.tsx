@@ -6,15 +6,19 @@ interface CardContainerProps {
 }
 
 const CardContainer = ({ searchText } : CardContainerProps) => {
-  const { loading, data, setText: setSearchText } = useGetSearchImagesHook();
+  const { loading, data, setText: setSearchText, nextPage } = useGetSearchImagesHook();
 
   useEffect(() => {
     setSearchText(searchText);
   }, [searchText, setSearchText]);
 
+  console.log('Loading:  ', loading);
+  // console.log('Data:  ', data);
+
   return (
     <div className="CardContainer">
       Card Container!
+      <button onClick={() => nextPage()}>Next Page!</button>
     </div>
   );
 }

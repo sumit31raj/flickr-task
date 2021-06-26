@@ -13,10 +13,10 @@ const getURL = (params: {[key: string]: string }) => {
 export const useGetSearchImagesHook = () => {
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
-  const [data, setData] = useState([]);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [data, setData] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
 
-  const nextPage = () => setPageNumber(pageNumber => pageNumber + 1);
+  const nextPage = () => setPage(page => page + 1);
 
   const method = text ? 'flickr.photos.search' : 'flickr.photos.getRecent';
 
@@ -25,18 +25,18 @@ export const useGetSearchImagesHook = () => {
       try {
         const params: {
           method: string;
-          pageNumber: string;
+          page: string;
           text?: string;
         } =  {
           method,
-          pageNumber: pageNumber.toString(),
+          page: page.toString(),
           text,
         };
 
         if (!text) delete params['text']
 
         const responseData = await get(getURL(params));
-        setData(responseData);
+        setData(data => [...data, ...responseData.photos.photo]);
       } catch (error) {
         console.log('Got Error: ', error);
       }
@@ -44,7 +44,7 @@ export const useGetSearchImagesHook = () => {
     }
 
     fetch();
-  }, [text, method, pageNumber]);
+  }, [text, method, page]);
 
   return {
     loading,
