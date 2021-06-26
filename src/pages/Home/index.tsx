@@ -1,12 +1,16 @@
-import React from 'react';
-// import './App.css';
+import React, { useState } from 'react';
+import Search from '../../components/Search';
+import CardContainer from '../../components/CardContainer';
 
-const App = () => {
+const Home = () => {
+  const [searchText, setSearchText] = useState('');
+
   return (
-    <div className="App">
-      Hi There!
+    <div className="Home">
+      <Search onClick={text => setSearchText(text)} />
+      <CardContainer searchText={searchText} />
     </div>
   );
 }
 
-export default App;
+export default Home;
