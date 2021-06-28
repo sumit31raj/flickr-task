@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroller';
 import { useGetSearchImagesHook } from '../../services/flickr';
 import PhotoCard from '../PhotoCard';
 import Loader from '../Loader';
@@ -7,21 +8,45 @@ interface CardContainerProps {
   searchText: string;
 }
 
-const CardContainer = ({ searchText } : CardContainerProps) => {
-  const { loading, photos, setText: setSearchText, nextPage } = useGetSearchImagesHook();
+const CardContainer = ({ searchText }: CardContainerProps) => {
+  const [page, setPage] = useState(1);
+
+  const {
+    loading,
+    photos,
+    setText: setSearchText,
+    fetch
+  } = useGetSearchImagesHook();
 
   useEffect(() => {
     setSearchText(searchText);
   }, [searchText, setSearchText]);
 
+  useEffect(() => {
+    loadMore();
+  }, [searchText]);
+
+  const loadMore = async () => {
+    await fetch(page)
+    setPage(page + 1);
+  };
+
   return (
-    <div className="CardContainer">
+    <div className="container">
       Card Container!
-      {
-        photos.map(photo => <PhotoCard key={photo.id} photo={photo}/>)
-      }
-      <Loader loading={loading} />
-      <button onClick={() => nextPage()}>Next Page!</button>
+      <InfiniteScroll
+        pageStart={0}
+        hasMore={true}
+        loadMore={loadMore}
+        threshold={500}
+      >
+        <div className="row">
+          {photos.map(photo =>
+            <PhotoCard key={photo.id} photo={photo} />
+          )}
+        </div>
+        <Loader loading={loading} />
+      </InfiniteScroll>
     </div>
   );
 }

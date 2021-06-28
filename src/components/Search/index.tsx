@@ -10,16 +10,26 @@ const Search = ({ onClick }: SearchProps) => {
 
   const onSearchButtonClick = () => onClick(searchText);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.currentTarget.value);
-  
+
   return (
-    <div className="Search">
-      <input 
-        placeholder="Search Images!"
-        value={searchText}
-        onChange={onChange}
-      />
-      <Button title="Search" onClick={onSearchButtonClick}/>
-    </div>
+    <header className="navbar bg-dark">
+      <div className="container">
+        <div className="input-group">
+          <input
+            type="search"
+            name="search"
+            className="form-control mr-sm-2"
+            placeholder="Search by title..."
+            value={searchText}
+            onChange={onChange}
+          />
+          <Button
+            title="Search"
+            onClick={onSearchButtonClick}
+          />
+        </div>
+      </div>
+    </header>
   );
 }
 

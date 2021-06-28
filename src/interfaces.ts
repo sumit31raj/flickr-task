@@ -1,30 +1,20 @@
 export interface Photo {
+  description: Description;
   id: string;
-  owner: string;
+  owner: Owner;
+  height_s: number;
+  width_s: number;
+  url_s: string;
+  title: string;
+  ownername: string;
+  tags: string;
 }
 
-export interface Tag {
-  id: string;
-  author: string;
-  authorname: string;
+interface Owner {
+  path_alias: string;
+  username: string;
 }
 
 interface Description {
   _content: string;
-}
-
-interface Title {
-  _content: string;
-}
-
-interface PhotoURL {
-  type: string;
-  _content: string;
-}
-
-export interface PhotoDetail extends Photo {
-  description: Description;
-  tags: Tag[];
-  urls: PhotoURL[];
-  title: Title;
 }
