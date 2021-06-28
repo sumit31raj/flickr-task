@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { useGetSearchImagesHook } from '../../services/flickr';
+
 import PhotoCard from '../PhotoCard';
 import Loader from '../Loader';
+import { useGetSearchImagesHook } from '../../services/flickr';
 
 interface CardContainerProps {
   searchText: string;

@@ -6,6 +6,7 @@ import { Photo } from '../../interfaces';
 interface SearchImageHookResponse {
   loading: boolean;
   photos: Photo[];
+  error: boolean;
   setText: (text: string) => void;
   fetch: (page: number) => void;
   setPageLimit: (limit: number) => void;
@@ -16,6 +17,7 @@ export const useGetSearchImagesHook = (): SearchImageHookResponse => {
   const [text, setText] = useState('');
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [perPage, setPerPage] = useState(10);
+  const [error, setError] = useState(false);
 
   const setPageLimit = (limit: number) => setPerPage(limit);
 
@@ -46,6 +48,7 @@ export const useGetSearchImagesHook = (): SearchImageHookResponse => {
         setPhotos([...photos, ...responseData.photos.photo]);
       }
     } catch (error) {
+      setError(true);
       console.log('Got Error: ', error);
     }
     setLoading(false);
@@ -54,6 +57,7 @@ export const useGetSearchImagesHook = (): SearchImageHookResponse => {
   return {
     loading,
     photos,
+    error,
     setText,
     setPageLimit,
     fetch,
