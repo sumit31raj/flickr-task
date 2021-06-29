@@ -10,7 +10,7 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
   const description = photo.description._content.replace(/<\/?[^>]+(>|$)/g, '');
 
   return (
-    <div className="col-12 col-sm-6 col-md-4 col-lg-3 mx-auto my-2 pl-1">
+    <div className="item">
       <div className="card">
         <div className="img-container">
           <img src={photo.url_s} className="img-fluid w-100" alt="feed" />
@@ -39,7 +39,7 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
           {
             description.length > 0 ?
               <div className="mt-1">
-                Description: <EllipsisText
+                <b>Description:</b> <EllipsisText
                   text={description}
                   length={'100'}
                 />
@@ -50,7 +50,7 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
           {
             photo.tags.length > 0 ?
               <div className="tags mt-1">
-                Tags: <EllipsisText text={photo.tags} length={'100'}></EllipsisText>
+                <b>Tags:</b> <EllipsisText text={photo.tags.split(' ').join(', ')} length={'100'}></EllipsisText>
               </div> :
               false
           }

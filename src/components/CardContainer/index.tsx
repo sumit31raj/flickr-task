@@ -40,7 +40,7 @@ const CardContainer = ({ searchText }: CardContainerProps) => {
         loadMore={loadMore}
         threshold={500}
       >
-        <div className="row">
+        <div className="masonry">
           {photos.map(photo =>
             <PhotoCard key={photo.id} photo={photo} />
           )}
