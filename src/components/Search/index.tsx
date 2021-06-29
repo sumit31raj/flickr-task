@@ -14,20 +14,22 @@ const Search = ({ onClick }: SearchProps) => {
   return (
     <header className="navbar bg-dark">
       <div className="container">
-        <div className="input-group">
-          <input
-            type="search"
-            name="search"
-            className="form-control mr-sm-2"
-            placeholder="Search by title..."
-            value={searchText}
-            onChange={onChange}
-          />
-          <Button
-            title="Search"
-            onClick={onSearchButtonClick}
-          />
-        </div>
+        <form className="form-inline my-2">
+          <div className="input-group">
+            <input
+              type="search"
+              name="search"
+              className="form-control mr-sm-2"
+              placeholder="Search by title..."
+              value={searchText}
+              onChange={onChange}
+            />
+            <Button
+              title="Search"
+              onClick={onSearchButtonClick}
+            />
+          </div>
+        </form>
       </div>
     </header>
   );

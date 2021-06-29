@@ -34,7 +34,6 @@ const CardContainer = ({ searchText }: CardContainerProps) => {
 
   return (
     <div className="container">
-      Card Container!
       <InfiniteScroll
         pageStart={0}
         hasMore={true}
