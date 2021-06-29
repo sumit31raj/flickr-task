@@ -10,35 +10,36 @@ interface CardContainerProps {
 }
 
 const CardContainer = ({ searchText }: CardContainerProps) => {
-  const [page, setPage] = useState(1);
-
   const {
     loading,
     photos,
-    setText: setSearchText,
-    fetch
+    setSearchText,
+    nextPage,
   } = useGetSearchImagesHook();
 
   useEffect(() => {
-    setSearchText(searchText);
-  }, [searchText, setSearchText]);
+    if (searchText) {
+      setSearchText(searchText);
+    }
+  }, [searchText])
 
   useEffect(() => {
-    loadMore();
-  }, [searchText]);
+    nextPage();
+  }, [])
 
-  const loadMore = async () => {
-    await fetch(page)
-    setPage(page + 1);
-  };
+  const getNextPage = () => {
+    if (!loading) {
+      nextPage()
+    }
+  }
 
   return (
     <div className="container">
       <InfiniteScroll
-        pageStart={0}
+        pageStart={1}
         hasMore={true}
-        loadMore={loadMore}
-        threshold={500}
+        loadMore={getNextPage}
+        threshold={250}
       >
         <div className="masonry">
           {photos.map(photo =>
