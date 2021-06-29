@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import PhotoCard from '../PhotoCard';
@@ -21,10 +21,12 @@ const CardContainer = ({ searchText }: CardContainerProps) => {
     if (searchText) {
       setSearchText(searchText);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchText])
 
   useEffect(() => {
     nextPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const getNextPage = () => {

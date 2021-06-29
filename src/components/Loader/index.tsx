@@ -1,11 +1,13 @@
-import React from 'react';
-
 interface LoaderProps {
   loading: boolean;
 }
 
 const Loader = ({ loading }: LoaderProps) => (
-  loading ? <h5>Loading!!!!</h5> : <></>
+  loading
+    ? <div>
+      <img src="spinner.gif" className="spinner" alt="Loading" />
+    </div>
+    : <></>
 )
 
 export default Loader;

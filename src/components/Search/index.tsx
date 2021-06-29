@@ -13,7 +13,7 @@ const Search = ({ onClick }: SearchProps) => {
 
   return (
     <header className="navbar bg-dark">
-      <div className="text-light mx-auto">Flickr App</div>
+      <h3 className="text-light mx-auto">Flickr App</h3>
       <div className="container justify-content-end">
         <form className="form-inline my-2 my-lg-0 ml-auto">
           <div className="input-group">
