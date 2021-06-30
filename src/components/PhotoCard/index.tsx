@@ -15,7 +15,7 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
         <div className="img-container">
           <img src={photo.url_s} className="img-fluid w-100" alt="feed" loading="lazy" />
         </div>
-        <div className="mx-1">
+        <div className="mx-1 card-content">
           <div className="mt-1">
             <a
               href={`https://www.flickr.com/photos/${photo.owner}/${photo.id}/`}
