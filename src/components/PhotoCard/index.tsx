@@ -2,7 +2,6 @@ import EllipsisText from 'react-ellipsis-text';
 import { Photo } from '../../interfaces';
 import { LazyImage } from '../LazyImage';
 
-
 interface PhotoCardProps {
   photo: Photo;
 }
@@ -37,24 +36,16 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
               {photo.ownername}
             </a>
           </div>
-          {
-            description.length > 0 ?
-              <div className="mt-1">
-                <b>Description:</b> <EllipsisText
-                  text={description}
-                  length={100}
-                />
-              </div>
-              :
-              false
-          }
-          {
-            photo.tags.length > 0
-              ? <div className="tags mt-1">
-                <b>Tags:</b> <EllipsisText text={photo.tags.split(' ').join(', ')} length={100}></EllipsisText>
-              </div> :
-              false
-          }
+          {description.length > 0 && (
+            <div className="mt-1">
+              <b>Description:</b> <EllipsisText text={description} length={100} />
+            </div>
+          )}
+          {photo.tags.length > 0 && (
+            <div className="tags mt-1">
+              <b>Tags:</b> <EllipsisText text={photo.tags.split(' ').join(', ')} length={100} />
+            </div>
+          )}
         </div>
       </div>
     </div>

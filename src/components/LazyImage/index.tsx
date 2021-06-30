@@ -9,10 +9,10 @@ interface LazyImageProps {
 };
 
 export const LazyImage = ({ src, alt }: LazyImageProps) => {
-    const { status, isAppropriate, fetchImageAppropriation } = useIsImageAppropriateHook(src);
+  const { status, isAppropriate, fetchImageAppropriation } = useIsImageAppropriateHook(src);
 
   const [imageSrc, setImageSrc] = useState(blurredPlaceholder);
-  const [wouldShow, setWouldShow] = useState(false);
+  const [loadImage, setLoadImage] = useState(false);
 
   const imageRef = useRef(null);
 
@@ -21,18 +21,14 @@ export const LazyImage = ({ src, alt }: LazyImageProps) => {
     let didCancel: boolean = false;
     const imageElem = imageRef.current;
 
-    if (imageRef && !wouldShow) {
+    if (imageRef && !loadImage) {
       if (IntersectionObserver) {
         observer = new IntersectionObserver(
-          entries => {
-            entries.forEach(entry => {
+          (entries) => {
+            entries.forEach((entry) => {
               // when image is visible in the viewport + rootMargin
-              if (
-                !didCancel &&
-                (entry.intersectionRatio > 0 || entry.isIntersecting)
-              ) {
-                // setImageSrc(src);
-                setWouldShow(true);
+              if (!didCancel && (entry.intersectionRatio > 0 || entry.isIntersecting)) {
+                setLoadImage(true);
               }
             })
           },
@@ -40,12 +36,11 @@ export const LazyImage = ({ src, alt }: LazyImageProps) => {
             threshold: 0.01,
             rootMargin: '75%',
           }
-        )
+        );
         observer.observe(imageRef.current);
       } else {
         // Old browsers fallback
-        // setImageSrc(src);
-        setWouldShow(true);
+        setLoadImage(true);
       }
     }
     return () => {
@@ -58,10 +53,10 @@ export const LazyImage = ({ src, alt }: LazyImageProps) => {
   });
 
   useEffect(() => {
-    if (wouldShow && status === ImageAppropriationRequestStatus.NotStarted) {
+    if (loadImage && status === ImageAppropriationRequestStatus.NotStarted) {
       fetchImageAppropriation();
     }
-  }, [wouldShow, status]);
+  }, [loadImage, status]);
 
   useEffect(() => {
     if (status === ImageAppropriationRequestStatus.GotResult && isAppropriate) {
