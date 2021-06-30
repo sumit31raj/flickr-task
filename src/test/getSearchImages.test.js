@@ -83,7 +83,7 @@ describe("useGetSearchImagesHook", () => {
 
   it("should return data with a successful request", async () => {
     const { result } = renderHook(() => useGetSearchImagesHook());
-    fetchMock.mock("https://www.flickr.com/services/rest/?api_key=60bf1dd414efdcfc34c742cdc01206dc&format=json&nojsoncallback=true&method=flickr.photos.search&page=1&per_page=50&safe_search=1&text=cat&extras=description,url_s,tags,owner_name", {
+    fetchMock.mock("https://www.flickr.com/services/rest/?api_key=60bf1dd414efdcfc34c742cdc01206dc&format=json&nojsoncallback=true&method=flickr.photos.search&page=1&per_page=20&safe_search=1&text=cat&extras=description,url_s,tags,owner_name", {
       photos: {
         photo
       }
@@ -98,13 +98,13 @@ describe("useGetSearchImagesHook", () => {
   it("should return error as true if api error", async () => {
     const { result } = renderHook(() => useGetSearchImagesHook());
 
-    fetchMock.mock("https://www.flickr.com/services/rest/?api_key=60bf1dd414efdcfc34c742cdc01206dc&format=json&nojsoncallback=true&method=flickr.photos.search&page=1&per_page=50&safe_search=1&text=cat&extras=description,url_s,tags,owner_name", 500, { overwriteRoutes: true });
+    fetchMock.mock("https://www.flickr.com/services/rest/?api_key=60bf1dd414efdcfc34c742cdc01206dc&format=json&nojsoncallback=true&method=flickr.photos.search&page=1&per_page=20&safe_search=1&text=cat&extras=description,url_s,tags,owner_name", 500, { overwriteRoutes: true });
 
     await act(async () => {
       result.current.setSearchText('cat');
     });
 
     expect(result.current.photos).toStrictEqual([]);
-    expect(result.current.error).toBe('invalid json response body at https://www.flickr.com/services/rest/?api_key=60bf1dd414efdcfc34c742cdc01206dc&format=json&nojsoncallback=true&method=flickr.photos.search&page=1&per_page=50&safe_search=1&text=cat&extras=description,url_s,tags,owner_name reason: Unexpected end of JSON input');
+    expect(result.current.error).toBe('invalid json response body at https://www.flickr.com/services/rest/?api_key=60bf1dd414efdcfc34c742cdc01206dc&format=json&nojsoncallback=true&method=flickr.photos.search&page=1&per_page=20&safe_search=1&text=cat&extras=description,url_s,tags,owner_name reason: Unexpected end of JSON input');
   });
 });
