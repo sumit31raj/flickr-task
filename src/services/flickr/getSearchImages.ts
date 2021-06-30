@@ -58,7 +58,7 @@ export const useGetSearchImagesHook = (): SearchImageHookResponse => {
       const newData = await fetchPhotos(text, page + 1, perPage);
       setPhotos([...photos, ...newData]);
     } catch (error) {
-      setError(error)
+      setError(error.message)
     }
     setLoading(false);
   }
@@ -71,7 +71,7 @@ export const useGetSearchImagesHook = (): SearchImageHookResponse => {
       const newData = await fetchPhotos(searchText, 1, perPage);
       setPhotos([...newData]);
     } catch (error) {
-      setError(error)
+      setError(error.message)
     }
     setLoading(false);
   }
