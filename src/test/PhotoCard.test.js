@@ -17,10 +17,21 @@ const props = {
     title: "1 (35)...austria djungle",
     url_s: "https://live.staticflickr.com/65535/51276665469_bcf6381fea_m.jpg",
     width_s: 240
-  };
+};
 
 describe('Feed Component', () => {
     let wrapper;
+    
+    beforeEach(() => {
+        // IntersectionObserver isn't available in test environment
+        const mockIntersectionObserver = jest.fn();
+        mockIntersectionObserver.mockReturnValue({
+            observe: () => null,
+            unobserve: () => null,
+            disconnect: () => null
+        });
+        window.IntersectionObserver = mockIntersectionObserver;
+    });
 
     beforeEach(() => {
         wrapper = mount(<PhotoCard photo={props} />);

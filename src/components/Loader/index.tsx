@@ -4,8 +4,8 @@ interface LoaderProps {
 
 const Loader = ({ loading }: LoaderProps) => (
   loading
-    ? <div>
-      <img src="spinner.gif" className="spinner" alt="Loading" />
+    ?
+    <div className="spinner-grow spinner" role="status">
     </div>
     : <></>
 )

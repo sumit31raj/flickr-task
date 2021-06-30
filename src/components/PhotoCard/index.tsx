@@ -1,6 +1,7 @@
 import EllipsisText from "react-ellipsis-text";
 
 import { Photo } from '../../interfaces';
+import { LazyImage } from "../LazyImage";
 
 interface PhotoCardProps {
   photo: Photo;
@@ -13,7 +14,10 @@ const PhotoCard = ({ photo }: PhotoCardProps) => {
     <div className="item">
       <div className="card">
         <div className="img-container">
-          <img src={photo.url_s} className="img-fluid w-100" alt="feed" loading="lazy" />
+          <LazyImage
+            src={photo.url_s}
+            alt="feed"
+          />
         </div>
         <div className="mx-1 card-content">
           <div className="mt-1">
