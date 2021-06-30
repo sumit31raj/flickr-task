@@ -18,8 +18,9 @@ Although the main outcomes of the task are listed above, if you feel like you wa
 ## Installation
 
 ```bash
-npm install
-npm start
+- npm install
+- create .env file from .env.sample and add values to variables
+- npm start
 ```
 
 
