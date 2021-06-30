@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import blurredPlaceholder from '../../assets/blurred-placeholder.jpeg';
-import { useIsImageAppropriateHook, ImageAppropriationRequestStatus } from '../../services/deepai';
+import { useIsImageAppropriateHook, ImageAppropriationRequestStatus } from '../../services/moderateContent';
 import Loader from '../Loader';
 
 interface LazyImageProps {
@@ -69,5 +69,12 @@ export const LazyImage = ({ src, alt }: LazyImageProps) => {
     }
   }, [status, isAppropriate, src]);
 
-  return <img src={imageSrc} alt={alt} className="img-fluid w-100" ref={imageRef} />
+  return (
+    <div className="position-relative">
+      <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center">
+        <Loader loading={status === ImageAppropriationRequestStatus.Loading}/>
+      </div>
+      <img src={imageSrc} alt={alt} className="img-fluid w-100" ref={imageRef} />
+    </div>
+  );
 };

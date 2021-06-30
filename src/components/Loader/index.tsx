@@ -3,11 +3,7 @@ interface LoaderProps {
 }
 
 const Loader = ({ loading }: LoaderProps) => (
-  loading
-    ?
-    <div className="spinner-grow spinner" role="status">
-    </div>
-    : <></>
-)
+  loading ? <div className="spinner-grow text-primary" role="status"></div> : <></>
+);
 
 export default Loader;

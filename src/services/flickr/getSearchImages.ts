@@ -45,7 +45,7 @@ export const useGetSearchImagesHook = (): SearchImageHookResponse => {
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const [perPage, setPerPage] = useState(50);
+  const [perPage, setPerPage] = useState(20);
   const [error, setError] = useState('');
   const [page, setPage] = useState(0);
 
