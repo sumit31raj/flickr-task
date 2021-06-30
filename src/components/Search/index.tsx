@@ -8,14 +8,17 @@ interface SearchProps {
 const Search = ({ onClick }: SearchProps) => {
   const [searchText, setSearchText] = useState('');
 
-  const onSearchButtonClick = () => onClick(searchText);
+  const onSearchButtonClick = (e: React.FormEvent) => {
+    e.preventDefault();
+    onClick(searchText);
+  }
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.currentTarget.value);
 
   return (
     <header className="navbar bg-dark">
       <h3 className="text-light mx-auto">Flickr App</h3>
       <div className="container justify-content-end mobile-search-center">
-        <form className="form-inline my-2 my-lg-0 ml-auto">
+        <form className="form-inline my-2 my-lg-0 ml-auto" onSubmit={onSearchButtonClick}>
           <div className="input-group display-inline-flex">
             <input
               type="search"
@@ -25,10 +28,7 @@ const Search = ({ onClick }: SearchProps) => {
               value={searchText}
               onChange={onChange}
             />
-            <Button
-              title="Search"
-              onClick={onSearchButtonClick}
-            />
+            <Button title="Search" />
           </div>
         </form>
       </div>
