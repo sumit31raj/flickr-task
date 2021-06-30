@@ -1,5 +1,6 @@
-import { useIsImageAppropriateHook } from './isImageAppropriate';
+import { useIsImageAppropriateHook, ImageAppropriationRequestStatus } from './isImageAppropriate';
 
 export {
-  useIsImageAppropriateHook
+  useIsImageAppropriateHook,
+  ImageAppropriationRequestStatus,
 };

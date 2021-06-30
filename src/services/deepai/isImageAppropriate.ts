@@ -12,43 +12,50 @@ const checkImageAppropriation = async (imageUrl: string, signal?: any): Promise<
 };
 
 interface IsImageAppropriateHookResponse {
-  loading: boolean;
+  status: ImageAppropriationRequestStatus;
   isAppropriate: boolean;
-  error: any;
+  fetchImageAppropriation: () => void;
+}
+
+export enum ImageAppropriationRequestStatus {
+  NotStarted = 1,
+  Loading,
+  GotResult,
+  Error,
 }
 
 export const useIsImageAppropriateHook = (url: string): IsImageAppropriateHookResponse => {
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState(ImageAppropriationRequestStatus.NotStarted);
   const [isAppropriate, setIsAppropriate] = useState(false);
-  const [error, setError] = useState();
   const abortControllerRef = useRef(new AbortController());
 
   const getImageAppropriationInfo = async (_url: string) => {
+    setStatus(ImageAppropriationRequestStatus.Loading);
     try {
       const data = await checkImageAppropriation(_url, abortControllerRef.current.signal);
       setIsAppropriate(data);
+      setStatus(ImageAppropriationRequestStatus.GotResult);
     } catch (error) {
-      setError(error);
+      setStatus(ImageAppropriationRequestStatus.Error);
     }
-    setLoading(false);
   }
 
   useEffect(() => {
     const abortController = abortControllerRef.current;
 
-    if (url) {
-      getImageAppropriationInfo(url)
-    }
-
     return () => {
       console.log('Un mounting:  ')
       abortController.abort();
     }
-  }, [url]);
+  }, []);
+
+  const fetchImageAppropriation = () => {
+    getImageAppropriationInfo(url)
+  }
  
   return {
-    loading,
+    status,
     isAppropriate,
-    error,
+    fetchImageAppropriation,
   };
 }
