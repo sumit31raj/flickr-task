@@ -15,6 +15,7 @@ const CardContainer = ({ searchText }: CardContainerProps) => {
     photos,
     setSearchText,
     nextPage,
+    error,
   } = useGetSearchImagesHook();
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const CardContainer = ({ searchText }: CardContainerProps) => {
   }, [])
 
   const getNextPage = () => {
-    if (!loading) {
+    if (!loading && !error) {
       nextPage()
     }
   }
@@ -49,6 +50,7 @@ const CardContainer = ({ searchText }: CardContainerProps) => {
           )}
         </div>
         <Loader loading={loading} />
+        {error && <p>Got error while fetching Data. Please try again in sometime.</p>}
       </InfiniteScroll>
     </div>
   );
